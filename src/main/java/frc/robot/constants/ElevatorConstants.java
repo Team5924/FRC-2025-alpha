@@ -8,4 +8,5 @@ package frc.robot.constants;
 public class ElevatorConstants {
   public static final int kLeftTalonId = 30;
   public static final int kRightTalonId = 31;
+  public static final int kClawTalonId = 40;
 }
