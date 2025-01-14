@@ -6,25 +6,22 @@ package frc.robot.subsystems.claw;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.ClawConstants;
 
 /** Add your docs here. */
 public class ClawIOVictorSPX implements ClawIO {
   // Leader
-  private final VictorSPX leftTalon = new VictorSPX(ElevatorConstants.kClawTalonId);
+  private final VictorSPX victor = new VictorSPX(ClawConstants.kClawVictorId);
 
   public ClawIOVictorSPX() {}
 
   @Override
   public void updateInputs(ClawIOInputs inputs) {
-    // inputs.leftMotorAppliedVoltage = leftTalon.getMotorVoltage().getValueAsDouble();
-    // inputs.rightMotorAppliedVoltage = rightTalon.getMotorVoltage().getValueAsDouble();
-    // inputs.clawMotorAppliedVoltage = leftTalon.getMotorOutputVoltage().getValueAsDouble();
+    inputs.clawMotorAppliedVoltage = victor.getMotorOutputVoltage();
   }
 
   @Override
   public void setPercent(double percent) {
-    leftTalon.set(ControlMode.PercentOutput, percent);
-    // rightTalon.setVoltage(-volts);
+    victor.set(ControlMode.PercentOutput, percent);
   }
 }
