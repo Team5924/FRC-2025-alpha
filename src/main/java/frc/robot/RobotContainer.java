@@ -131,7 +131,7 @@ public class RobotContainer {
             drive,
             () -> -driverController.getLeftY(),
             () -> -driverController.getLeftX(),
-            () -> -driverController.getRightX()));
+            () -> driverController.getRightX()));
 
     elevator.setDefaultCommand(
         new RunElevator(
