@@ -13,8 +13,22 @@ public class Elevator extends SubsystemBase {
 
   private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
+  public enum ElevatorState {
+    INTAKE,
+    L1,
+    L2,
+    L3,
+    L4,
+    MOVING_TO_SETPOINT
+  }
+
+  private ElevatorState goalState;
+  private ElevatorState state;
+
   public Elevator(ElevatorIO io) {
     this.io = io;
+    this.goalState = ElevatorState.INTAKE;
+    this.state = ElevatorState.INTAKE;
   }
 
   @Override
@@ -24,7 +38,7 @@ public class Elevator extends SubsystemBase {
     Logger.processInputs("Elevator", inputs);
   }
 
-  public void setVoltage(double volts) {
-    io.setVoltage(volts);
+  public void setGoalState(ElevatorState goalState) {
+    
   }
 }

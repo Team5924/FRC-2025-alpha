@@ -18,11 +18,27 @@ import org.littletonrobotics.junction.AutoLog;
 public interface ElevatorIO {
   @AutoLog
   public static class ElevatorIOInputs {
-    public double leftMotorAppliedVoltage = 0.0;
-    public double rightMotorAppliedVoltage = 0.0;
+    public boolean leftMotorConnected = true;
+    public boolean rightMotorConnected = true;
+
+    public double leftPositionRads = 0.0;
+    public double leftVelocityRadsPerSec = 0.0;
+    public double leftAppliedVolts = 0.0;
+    public double leftSupplyCurrentAmps = 0.0;
+    public double leftTorqueCurrentAmps = 0.0;
+    public double leftTempCelsius = 0.0;
+
+    public double rightPositionRads = 0.0;
+    public double rightVelocityRadsPerSec = 0.0;
+    public double rightAppliedVolts = 0.0;
+    public double rightSupplyCurrentAmps = 0.0;
+    public double rightTorqueCurrentAmps = 0.0;
+    public double rightTempCelsius = 0.0;
   }
 
   public default void updateInputs(ElevatorIOInputs inputs) {}
 
   public default void setVoltage(double volts) {}
+
+  public default void setPosition(double rads) {}
 }
