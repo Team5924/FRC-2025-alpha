@@ -36,6 +36,10 @@ import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIOTalonSRX;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterIO;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -49,6 +53,7 @@ public class RobotContainer {
   private final Drive drive;
   private Elevator elevator;
   private Claw claw;
+  private Shooter shooter;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -71,6 +76,7 @@ public class RobotContainer {
                 new ModuleIOTalonFX(TunerConstants.BackRight));
         elevator = new Elevator(new ElevatorIOTalonSRX());
         claw = new Claw(new ClawIOVictorSPX());
+        shooter = new Shooter(new ShooterIOTalonFX());
         break;
 
       case SIM:
@@ -95,6 +101,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {});
         elevator = new Elevator(new ElevatorIOTalonSRX());
+        shooter = new Shooter(new ShooterIO() {});
         break;
     }
 
@@ -148,6 +155,7 @@ public class RobotContainer {
             }));
 
     driverController.a().whileTrue(Commands.runOnce(() -> claw.setPercent(0.2), claw));
+    driverController.y().whileTrue(Commands.runOnce(() -> shooter.setVoltage(4), shooter));
 
     // Lock to 0° when A button is held
     // driverController

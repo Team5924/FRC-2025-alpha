@@ -5,6 +5,6 @@
 package frc.robot.constants;
 
 /** Add your docs here. */
-public class ClawConstants {
-  public static final int kClawVictorId = 40;
+public class ShooterConstants {
+  public static final int kShooterTalonId = -1;
 }
