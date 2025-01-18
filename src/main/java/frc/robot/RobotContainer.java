@@ -143,6 +143,7 @@ public class RobotContainer {
             () -> -driverController.getLeftX(),
             () -> driverController.getRightX()));
 
+    // Control elevator with Left Y
     elevator.setDefaultCommand(
         new RunElevator(
             elevator,
@@ -154,7 +155,10 @@ public class RobotContainer {
               }
             }));
 
+    // Set claw to 20% while A button is held
     driverController.a().whileTrue(Commands.runOnce(() -> claw.setPercent(0.2), claw));
+
+    // Set shooter to 4 volts while Y button is held
     driverController.y().whileTrue(Commands.runOnce(() -> shooter.setVoltage(4), shooter));
 
     // Lock to 0° when A button is held

@@ -6,5 +6,6 @@ package frc.robot.constants;
 
 /** Add your docs here. */
 public class ShooterConstants {
+  // TODO: Update with actual Talon ID
   public static final int kShooterTalonId = -1;
 }
