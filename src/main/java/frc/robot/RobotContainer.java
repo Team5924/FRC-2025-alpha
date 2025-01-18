@@ -26,6 +26,8 @@ import frc.robot.commands.drive.DriveCommands;
 import frc.robot.commands.elevator.RunElevator;
 import frc.robot.constants.Constants;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.claw.Claw;
+import frc.robot.subsystems.claw.ClawIOVictorSPX;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -33,7 +35,6 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOTalonSRX;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -46,7 +47,8 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  private final Elevator elevator;
+  private Elevator elevator;
+  private Claw claw;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -68,6 +70,7 @@ public class RobotContainer {
                 new ModuleIOTalonFX(TunerConstants.BackLeft),
                 new ModuleIOTalonFX(TunerConstants.BackRight));
         elevator = new Elevator(new ElevatorIOTalonSRX());
+        claw = new Claw(new ClawIOVictorSPX());
         break;
 
       case SIM:
@@ -79,7 +82,7 @@ public class RobotContainer {
                 new ModuleIOSim(TunerConstants.FrontRight),
                 new ModuleIOSim(TunerConstants.BackLeft),
                 new ModuleIOSim(TunerConstants.BackRight));
-        elevator = new Elevator(new ElevatorIO() {});
+        // elevator = new Elevator(new ElevatorIO() {});
         break;
 
       default:
@@ -144,15 +147,17 @@ public class RobotContainer {
               }
             }));
 
+    driverController.a().whileTrue(Commands.runOnce(() -> claw.setPercent(0.2), claw));
+
     // Lock to 0° when A button is held
-    driverController
-        .a()
-        .whileTrue(
-            DriveCommands.joystickDriveAtAngle(
-                drive,
-                () -> -driverController.getLeftY(),
-                () -> -driverController.getLeftX(),
-                () -> new Rotation2d()));
+    // driverController
+    //     .a()
+    //     .whileTrue(
+    //         DriveCommands.joystickDriveAtAngle(
+    //             drive,
+    //             () -> -driverController.getLeftY(),
+    //             () -> -driverController.getLeftX(),
+    //             () -> new Rotation2d()));
 
     // Switch to X pattern when X button is pressed
     driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));

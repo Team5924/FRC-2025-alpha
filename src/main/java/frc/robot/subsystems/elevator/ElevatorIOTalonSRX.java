@@ -9,17 +9,15 @@ import frc.robot.constants.ElevatorConstants;
 
 /** Add your docs here. */
 public class ElevatorIOTalonSRX implements ElevatorIO {
-  // Leader
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(ElevatorConstants.kLeftTalonId);
-  // Follower
   private final WPI_TalonSRX rightTalon = new WPI_TalonSRX(ElevatorConstants.kRightTalonId);
 
   public ElevatorIOTalonSRX() {}
 
   @Override
   public void updateInputs(ElevatorIOInputs inputs) {
-    // inputs.leftMotorAppliedVoltage = leftTalon.getMotorVoltage().getValueAsDouble();
-    // inputs.rightMotorAppliedVoltage = rightTalon.getMotorVoltage().getValueAsDouble();
+    inputs.leftMotorAppliedVoltage = leftTalon.getMotorOutputVoltage();
+    inputs.rightMotorAppliedVoltage = rightTalon.getMotorOutputVoltage();
   }
 
   @Override
