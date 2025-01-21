@@ -6,18 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.panic.Outtake;
-import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RunOuttake extends Command {
   /** Creates a new RunIntake. */
   private final Outtake outtake;
 
-  private final DoubleSupplier leftY;
+  private final boolean isOn;
 
-  public RunIntake(Outtake outtake, DoubleSupplier leftY) {
+  public RunOuttake(Outtake outtake, boolean isOn) {
     this.outtake = outtake;
-    this.leftY = leftY;
+    this.isOn = isOn;
     addRequirements(outtake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,7 +28,13 @@ public class RunOuttake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    outtake.setVoltage(leftY.getAsDouble());
+    if (isOn) {
+      outtake.setVoltage(3);
+    }
+
+    if (!isOn) {
+      outtake.setVoltage(0);
+    }
   }
 
   // Called once the command ends or is interrupted.

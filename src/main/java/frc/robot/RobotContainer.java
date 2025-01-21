@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunOuttake;
 import frc.robot.commands.drive.DriveCommands;
 import frc.robot.commands.elevator.RunElevator;
 import frc.robot.constants.Constants;
@@ -153,7 +155,20 @@ public class RobotContainer {
               }
             }));
 
-    driverController.a().whileTrue(Commands.runOnce(() -> claw.setPercent(0.2), claw));
+    intake.setDefaultCommand(
+        new RunIntake(
+            intake,
+            () -> {
+              if (Math.abs(operatorController.getRightY()) < 0.05) {
+                return 0;
+              } else {
+                return -operatorController.getRightY();
+              }
+            }));
+
+    driverController.a().onTrue(new RunOuttake(outtake, true));
+
+    driverController.a().onFalse(new RunOuttake(outtake, false));
 
     // Lock to 0° when A button is held
     // driverController
