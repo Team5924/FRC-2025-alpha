@@ -36,6 +36,8 @@ import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIOTalonSRX;
+import frc.robot.subsystems.panic.Intake;
+import frc.robot.subsystems.panic.Outtake;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -49,6 +51,8 @@ public class RobotContainer {
   private final Drive drive;
   private Elevator elevator;
   private Claw claw;
+  private Intake intake;
+  private Outtake outtake;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -71,6 +75,8 @@ public class RobotContainer {
                 new ModuleIOTalonFX(TunerConstants.BackRight));
         elevator = new Elevator(new ElevatorIOTalonSRX());
         claw = new Claw(new ClawIOVictorSPX());
+        intake = new Intake();
+        outtake = new Outtake();
         break;
 
       case SIM:
