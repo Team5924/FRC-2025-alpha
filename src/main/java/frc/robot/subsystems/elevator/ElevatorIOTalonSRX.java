@@ -23,6 +23,6 @@ public class ElevatorIOTalonSRX implements ElevatorIO {
   @Override
   public void setVoltage(double volts) {
     leftTalon.setVoltage(volts);
-    rightTalon.setVoltage(-volts);
+    rightTalon.setVoltage(volts);
   }
 }

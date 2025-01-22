@@ -8,6 +8,6 @@ public class Outtake extends SubsystemBase {
   private final TalonFX intakeTalon = new TalonFX(kOuttakeTalonID);
 
   public void setVoltage(double volts) {
-    intakeTalon.setVoltage(volts);
+    intakeTalon.setVoltage(-volts);
   }
 }

@@ -166,13 +166,12 @@ public class RobotContainer {
               }
             }));
 
-    driverController.a().onTrue(new RunOuttake(outtake, true));
-
-    driverController.a().onFalse(new RunOuttake(outtake, false));
+    operatorController.a().whileTrue(new RunOuttake(outtake, true));
+    operatorController.a().whileFalse(new RunOuttake(outtake, false));
 
     // Lock to 0° when A button is held
     // driverController
-    //     .a()
+    //
     //     .whileTrue(
     //         DriveCommands.joystickDriveAtAngle(
     //             drive,
