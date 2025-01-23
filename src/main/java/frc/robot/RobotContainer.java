@@ -37,9 +37,12 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.ElevatorIOTalonSRX;
 import frc.robot.subsystems.panic.Intake;
 import frc.robot.subsystems.panic.Outtake;
+import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterIO;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -55,6 +58,7 @@ public class RobotContainer {
   private Claw claw;
   private Intake intake;
   private Outtake outtake;
+  private Shooter shooter;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -75,10 +79,11 @@ public class RobotContainer {
                 new ModuleIOTalonFX(TunerConstants.FrontRight),
                 new ModuleIOTalonFX(TunerConstants.BackLeft),
                 new ModuleIOTalonFX(TunerConstants.BackRight));
-        elevator = new Elevator(new ElevatorIOTalonSRX());
+        elevator = new Elevator(new ElevatorIOTalonFX());
         claw = new Claw(new ClawIOVictorSPX());
         intake = new Intake();
         outtake = new Outtake();
+        shooter = new Shooter(new ShooterIOTalonFX());
         break;
 
       case SIM:
@@ -102,7 +107,8 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-        elevator = new Elevator(new ElevatorIOTalonSRX());
+        elevator = new Elevator(new ElevatorIOTalonFX());
+        shooter = new Shooter(new ShooterIO() {});
         break;
     }
 
@@ -144,6 +150,7 @@ public class RobotContainer {
             () -> -driverController.getLeftX(),
             () -> driverController.getRightX()));
 
+    // Control elevator with Left Y
     elevator.setDefaultCommand(
         new RunElevator(
             elevator,
@@ -168,6 +175,11 @@ public class RobotContainer {
 
     operatorController.a().whileTrue(new RunOuttake(outtake, true));
     operatorController.a().whileFalse(new RunOuttake(outtake, false));
+    // Set claw to 20% while A button is held
+    driverController.a().whileTrue(Commands.runOnce(() -> claw.setPercent(0.2), claw));
+
+    // Set shooter to 4 volts while Y button is held
+    driverController.y().whileTrue(Commands.runOnce(() -> shooter.setVoltage(4), shooter));
 
     // Lock to 0° when A button is held
     // driverController
