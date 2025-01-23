@@ -38,7 +38,5 @@ public class Elevator extends SubsystemBase {
     Logger.processInputs("Elevator", inputs);
   }
 
-  public void setGoalState(ElevatorState goalState) {
-    
-  }
+  public void setGoalState(ElevatorState goalState) {}
 }

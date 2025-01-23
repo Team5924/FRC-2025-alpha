@@ -19,7 +19,6 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -44,8 +43,10 @@ public class ElevatorIOTalonFX implements ElevatorIO {
   private final StatusSignal<Current> rightTorqueCurrent;
   private final StatusSignal<Temperature> rightTempCelsius;
 
-  private final VoltageOut voltageControl = new VoltageOut(0).withUpdateFreqHz(0.0).withEnableFOC(true);
-  private final PositionVoltage positionControl = new PositionVoltage(0).withUpdateFreqHz(0.0).withEnableFOC(true);
+  private final VoltageOut voltageControl =
+      new VoltageOut(0).withUpdateFreqHz(0.0).withEnableFOC(true);
+  private final PositionVoltage positionControl =
+      new PositionVoltage(0).withUpdateFreqHz(0.0).withEnableFOC(true);
 
   public ElevatorIOTalonFX() {
     leftTalon = new TalonFX(0);
