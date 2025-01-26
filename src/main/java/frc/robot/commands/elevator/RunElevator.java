@@ -27,7 +27,9 @@ public class RunElevator extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    elevator.setVoltage(leftY.getAsDouble() * 12);
+  }
 
   // Called once the command ends or is interrupted.
   @Override

@@ -49,8 +49,8 @@ public class ElevatorIOTalonFX implements ElevatorIO {
       new PositionVoltage(0).withUpdateFreqHz(0.0).withEnableFOC(true);
 
   public ElevatorIOTalonFX() {
-    leftTalon = new TalonFX(0);
-    rightTalon = new TalonFX(0);
+    leftTalon = new TalonFX(33);
+    rightTalon = new TalonFX(34);
 
     // General config
     final TalonFXConfiguration talonConfig = new TalonFXConfiguration();
@@ -140,10 +140,12 @@ public class ElevatorIOTalonFX implements ElevatorIO {
   @Override
   public void setVoltage(double volts) {
     leftTalon.setControl(voltageControl.withOutput(volts));
+    rightTalon.setControl(voltageControl.withOutput(volts));
   }
 
   @Override
   public void setPosition(double rads) {
     leftTalon.setControl(positionControl.withPosition(Radians.of(rads)));
+    rightTalon.setControl(positionControl.withPosition(Radians.of(rads)));
   }
 }

@@ -37,7 +37,6 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.panic.Intake;
 import frc.robot.subsystems.panic.Outtake;
 import frc.robot.subsystems.shooter.Shooter;
@@ -79,7 +78,7 @@ public class RobotContainer {
                 new ModuleIOTalonFX(TunerConstants.FrontRight),
                 new ModuleIOTalonFX(TunerConstants.BackLeft),
                 new ModuleIOTalonFX(TunerConstants.BackRight));
-        elevator = new Elevator(new ElevatorIOTalonFX());
+        elevator = new Elevator(); // new ElevatorIOTalonFX());
         claw = new Claw(new ClawIOVictorSPX());
         intake = new Intake();
         outtake = new Outtake();
@@ -107,7 +106,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-        elevator = new Elevator(new ElevatorIOTalonFX());
+        elevator = new Elevator(); // new ElevatorIOTalonFX());
         shooter = new Shooter(new ShooterIO() {});
         break;
     }
@@ -166,7 +165,7 @@ public class RobotContainer {
         new RunIntake(
             intake,
             () -> {
-              if (Math.abs(operatorController.getRightY()) < 0.05) {
+              if (Math.abs(operatorController.getRightY()) < 0.1) {
                 return 0;
               } else {
                 return -operatorController.getRightY();
